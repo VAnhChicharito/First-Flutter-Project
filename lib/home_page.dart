@@ -27,6 +27,8 @@ class HomePage extends StatefulWidget{
 
 class _HomePageState extends State<HomePage> {
   int _currentProductIndex = 0;
+  double? _inputtedPrice;
+  String _result = '';
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +42,29 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               width: 200,
               child: TextField(
+                key: const Key('priceInput'),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 textAlign: TextAlign.center,
+                onChanged: (value){
+                    _inputtedPrice = value as double?;
+                },
               ),
             ),
             SizedBox(height: 10,),
             ElevatedButton(
               onPressed: () {
+
                 setState(() {
-                  if(_currentProductIndex < 4) {
-                    _currentProductIndex++;
+                  if(_inputtedPrice == products[_currentProductIndex].price){
+                    _result = 'pass';
+                  }else{
+                    _result = 'failed';
                   }
+
+                  // if(_currentProductIndex < 4) {
+                  //   _currentProductIndex++;
+                  // }
                 });
               },
               child: Text('Push'),)
