@@ -10,11 +10,11 @@ class ProductInfo {
 }
 
 final products = [
-  ProductInfo('AAA', 0.2),
-  ProductInfo('BBB', 0.2),
-  ProductInfo('CCC', 0.2),
-  ProductInfo('DDD', 0.2),
-  ProductInfo('EEE', 0.2),
+  ProductInfo('AAA', 1),
+  ProductInfo('BBB', 2),
+  ProductInfo('CCC', 3),
+  ProductInfo('DDD', 4),
+  ProductInfo('EEE', 5),
 ];
 
 
@@ -27,7 +27,7 @@ class HomePage extends StatefulWidget{
 
 class _HomePageState extends State<HomePage> {
   int _currentProductIndex = 0;
-  double? _inputtedPrice;
+  int? _inputtedPrice;
   String _result = '';
 
   @override
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 textAlign: TextAlign.center,
                 onChanged: (value){
-                    _inputtedPrice = value as double?;
+                    _inputtedPrice = int.tryParse(value);
                 },
               ),
             ),
@@ -61,13 +61,27 @@ class _HomePageState extends State<HomePage> {
                   }else{
                     _result = 'failed';
                   }
-
-                  // if(_currentProductIndex < 4) {
-                  //   _currentProductIndex++;
-                  // }
                 });
               },
-              child: Text('Push'),)
+              child: Text('Push'),
+            ),
+            Visibility(
+              visible: _result.isNotEmpty,
+                child: Text(_result)),
+            Visibility(
+              visible: _result.isNotEmpty,
+              child: ElevatedButton(
+                  onPressed: (){
+                    setState(() {
+                      _result = '';
+                      if(_currentProductIndex < 4) {
+                        _currentProductIndex++;
+                      }
+                    });
+                  },
+                  child: Text('Next')),
+            )
+            
           ],
         ),
       ),
