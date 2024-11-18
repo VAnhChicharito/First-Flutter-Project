@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                   }
                 });
               },
-              child: Text('Push'),
+              child: Text('XXXXXX'),
             ),
             Visibility(
               visible: _result.isNotEmpty,
